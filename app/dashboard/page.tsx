@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 export default function DashboardPage() {
     return (
@@ -32,24 +35,25 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex gap-3">
                     <Link href="/dashboard/documents/upload">
-                        <Button variant="outline" className="gap-2">
+                        <Button variant="outline" className="gap-2 border-primary/20 text-primary hover:bg-primary/5">
                             <FileText className="w-4 h-4" /> Log Document
                         </Button>
                     </Link>
-                    <Link href="/dashboard/life-audit">
-                        <Button className="gap-2 shadow-sm font-semibold">
-                            <Activity className="w-4 h-4" /> Run Monthly Audit
-                        </Button>
-                    </Link>
+                    <Button
+                        className="gap-2 shadow-sm font-semibold"
+                        onClick={() => toast.success("Generating fresh Life Audit report...")}
+                    >
+                        <Activity className="w-4 h-4" /> Run Monthly Audit
+                    </Button>
                 </div>
             </div>
 
             {/* Tactical Heatmap / Life Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <Card className="border-border/60 shadow-sm hover:shadow-md transition-all">
+                <Card className="border-border/60 shadow-sm hover:shadow-md transition-all cursor-pointer group" onClick={() => toast.info("Bureaucracy Health is 94%. Passport renewal is upcoming.")}>
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Bureaucracy Health</CardTitle>
-                        <ShieldCheck className="w-4 h-4 text-primary" />
+                        <ShieldCheck className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-bold text-primary">94%</div>
@@ -62,10 +66,10 @@ export default function DashboardPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="border-border/60 shadow-sm hover:shadow-md transition-all">
+                <Card className="border-border/60 shadow-sm hover:shadow-md transition-all cursor-pointer group" onClick={() => toast.info("Financial Guard has identified $420 in potential savings.")}>
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Financial Guard</CardTitle>
-                        <TrendingUp className="w-4 h-4 text-green-600" />
+                        <TrendingUp className="w-4 h-4 text-green-600 group-hover:scale-110 transition-transform" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-bold text-primary">+$420</div>
@@ -78,10 +82,10 @@ export default function DashboardPage() {
                     </CardContent>
                 </Card>
 
-                <Card className="border-border/60 shadow-sm hover:shadow-md transition-all">
+                <Card className="border-border/60 shadow-sm hover:shadow-md transition-all cursor-pointer group" onClick={() => toast.info("1 active dispute regarding Spotify bundle.")}>
                     <CardHeader className="flex flex-row items-center justify-between pb-2">
                         <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Active Disputes</CardTitle>
-                        <Gavel className="w-4 h-4 text-amber-500" />
+                        <Gavel className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" />
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-bold text-primary">1</div>
@@ -105,7 +109,7 @@ export default function DashboardPage() {
                         Radar Alerts (Needs You)
                     </h3>
                     <div className="space-y-3">
-                        <Card className="border-l-4 border-l-amber-500 shadow-sm overflow-hidden bg-amber-50/10">
+                        <Card className="border-l-4 border-l-amber-500 shadow-sm overflow-hidden bg-amber-50/10 hover:shadow-md transition-all">
                             <div className="p-4 flex items-start gap-4">
                                 <div className="p-2 bg-amber-50 rounded-lg text-amber-600 shrink-0">
                                     <Calendar className="w-5 h-5" />
@@ -117,14 +121,14 @@ export default function DashboardPage() {
                                     </div>
                                     <p className="text-sm text-muted-foreground">Current Rate: $1,200/yr. Agent found a match for <span className="text-green-600 font-bold">$1,050</span>.</p>
                                     <div className="flex gap-2 mt-3">
-                                        <Button size="sm" className="h-8 text-xs bg-primary hover:bg-primary/90">Switch & Save $150</Button>
-                                        <Button size="sm" variant="ghost" className="h-8 text-xs">Keep Current</Button>
+                                        <Button size="sm" className="h-8 text-xs bg-primary hover:bg-primary/90" onClick={() => toast.success("Agent initializing policy switch. Check email for signature link.")}>Switch & Save $150</Button>
+                                        <Button size="sm" variant="ghost" className="h-8 text-xs" onClick={() => toast.info("Renewal will proceed with current provider.")}>Keep Current</Button>
                                     </div>
                                 </div>
                             </div>
                         </Card>
 
-                        <Card className="border-l-4 border-l-blue-500 shadow-sm overflow-hidden">
+                        <Card className="border-l-4 border-l-blue-500 shadow-sm overflow-hidden hover:shadow-md transition-all">
                             <div className="p-4 flex items-start gap-4">
                                 <div className="p-2 bg-blue-50 rounded-lg text-blue-600 shrink-0">
                                     <Home className="w-5 h-5" />
@@ -132,7 +136,7 @@ export default function DashboardPage() {
                                 <div className="space-y-1 w-full">
                                     <h4 className="font-semibold text-primary">Utility Bill Hike Detected</h4>
                                     <p className="text-sm text-muted-foreground">Electricity bill is 22% higher than last Feb. Possible leak or error.</p>
-                                    <Button size="sm" variant="secondary" className="h-8 text-xs mt-3">Request Meter Audit</Button>
+                                    <Button size="sm" variant="secondary" className="h-8 text-xs mt-3 bg-secondary hover:bg-secondary/80" onClick={() => toast.success("Meter audit request sent to utility provider.")}>Request Meter Audit</Button>
                                 </div>
                             </div>
                         </Card>
@@ -146,7 +150,7 @@ export default function DashboardPage() {
                         Agent Activity Log (Handled)
                     </h3>
                     <div className="space-y-4">
-                        <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border/50 shadow-sm">
+                        <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border/50 shadow-sm cursor-pointer hover:bg-slate-50 transition-colors" onClick={() => toast.info("Full case log #7721 - Refund issued to card ending in 4421.")}>
                             <div className="p-2 bg-green-50 rounded-full text-green-700 shrink-0">
                                 <Gavel className="w-4 h-4" />
                             </div>
@@ -158,7 +162,7 @@ export default function DashboardPage() {
                             <span className="text-[10px] font-bold text-muted-foreground uppercase">Today</span>
                         </div>
 
-                        <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border/50 shadow-sm opacity-80">
+                        <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border/50 shadow-sm opacity-80 cursor-pointer hover:bg-slate-50 transition-colors" onClick={() => toast.info("Confirmation email from Adobe received and stored in Vault.")}>
                             <div className="p-2 bg-green-50 rounded-full text-green-700 shrink-0">
                                 <ShieldCheck className="w-4 h-4" />
                             </div>
@@ -170,7 +174,7 @@ export default function DashboardPage() {
                             <span className="text-[10px] font-bold text-muted-foreground uppercase">Yesterday</span>
                         </div>
 
-                        <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border/50 shadow-sm opacity-80">
+                        <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border/50 shadow-sm opacity-80 cursor-pointer hover:bg-slate-50 transition-colors" onClick={() => toast.success("Tax folder is available for download in Document Vault.")}>
                             <div className="p-2 bg-blue-50 rounded-full text-blue-700 shrink-0">
                                 <FileText className="w-4 h-4" />
                             </div>
@@ -189,7 +193,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-8 border-t border-border/60">
                 <Link href="/dashboard/documents" className="block group">
                     <div className="p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/20 transition-all flex flex-col gap-3">
-                        <FileText className="w-5 h-5 text-blue-500" />
+                        <FileText className="w-5 h-5 text-blue-500 group-hover:scale-110 transition-transform" />
                         <div className="space-y-1">
                             <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Vault</p>
                             <p className="text-sm font-semibold group-hover:text-primary transition-colors">14 Docs Secured</p>
@@ -199,7 +203,7 @@ export default function DashboardPage() {
 
                 <Link href="/dashboard/subscriptions" className="block group">
                     <div className="p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/20 transition-all flex flex-col gap-3">
-                        <TrendingUp className="w-5 h-5 text-green-500" />
+                        <TrendingUp className="w-5 h-5 text-green-500 group-hover:scale-110 transition-transform" />
                         <div className="space-y-1">
                             <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Money</p>
                             <p className="text-sm font-semibold group-hover:text-primary transition-colors">$420 Optimized</p>
@@ -209,7 +213,7 @@ export default function DashboardPage() {
 
                 <Link href="/dashboard/deadlines" className="block group">
                     <div className="p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/20 transition-all flex flex-col gap-3">
-                        <Calendar className="w-5 h-5 text-amber-500" />
+                        <Calendar className="w-5 h-5 text-amber-500 group-hover:scale-110 transition-transform" />
                         <div className="space-y-1">
                             <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Radar</p>
                             <p className="text-sm font-semibold group-hover:text-primary transition-colors">2 Urgent Events</p>
@@ -217,7 +221,10 @@ export default function DashboardPage() {
                     </div>
                 </Link>
 
-                <div className="p-4 rounded-2xl bg-secondary/20 border border-dashed border-border/50 flex flex-col gap-3 grayscale opacity-60 cursor-not-allowed">
+                <div
+                    className="p-4 rounded-2xl bg-secondary/20 border border-dashed border-border/50 flex flex-col gap-3 grayscale opacity-60 cursor-pointer hover:opacity-80 transition-all"
+                    onClick={() => toast.warning("Family access requires Master Plan upgrade.")}
+                >
                     <Bell className="w-5 h-5 text-muted-foreground" />
                     <div className="space-y-1">
                         <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Family</p>

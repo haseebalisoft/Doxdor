@@ -16,7 +16,7 @@ export default function RegisterPage() {
         // Simulate API call
         setTimeout(() => {
             setIsLoading(false);
-            router.push("/dashboard");
+            router.push("/onboarding");
         }, 1500);
     };
 

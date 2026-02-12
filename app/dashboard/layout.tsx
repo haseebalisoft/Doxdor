@@ -12,16 +12,23 @@ import {
     Settings,
     LogOut,
     Menu,
+    Gavel,
+    Home,
+    Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 const sidebarLinks = [
-    { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-    { href: "/dashboard/documents", label: "Documents", icon: FileText },
-    { href: "/dashboard/deadlines", label: "Deadlines", icon: Calendar },
-    { href: "/dashboard/subscriptions", label: "Subscriptions", icon: CreditCard },
-    { href: "/dashboard/life-audit", label: "Life Audit", icon: ShieldCheck },
+    { href: "/dashboard", label: "Radar Status", icon: LayoutDashboard },
+    { href: "/dashboard/documents", label: "Document Vault", icon: FileText },
+    { href: "/dashboard/subscriptions", label: "Money Leaks", icon: CreditCard },
+    { href: "/dashboard/deadlines", label: "Active Deadlines", icon: Calendar },
+    { href: "/dashboard/disputes", label: "Dispute Tracker", icon: Gavel },
+    { href: "/dashboard/utilities", label: "Home & Utilities", icon: Home },
+    { href: "/dashboard/protocols", label: "Life Protocols", icon: Zap },
+    { href: "/dashboard/life-audit", label: "Monthly Life Audit", icon: ShieldCheck },
+    { href: "/dashboard/rules", label: "Agent Rules", icon: Settings },
 ];
 
 export default function DashboardLayout({
@@ -54,9 +61,9 @@ export default function DashboardLayout({
                 )}
             >
                 <div className="h-16 flex items-center px-6 border-b border-border">
-                    <span className="font-bold text-xl tracking-tight flex items-center gap-2 text-primary">
-                        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center shadow-sm">
-                            <span className="text-primary-foreground text-xs font-bold">DR</span>
+                    <span className="font-bold text-xl tracking-tight flex items-center gap-2 text-primary uppercase text-[12px] tracking-widest">
+                        <div className="w-6 h-6 bg-primary rounded flex items-center justify-center shadow-sm">
+                            <span className="text-primary-foreground text-[10px] font-bold">DR</span>
                         </div>
                         DoxRadar
                     </span>
@@ -84,6 +91,21 @@ export default function DashboardLayout({
                     })}
                 </nav>
 
+                {/* Security Heartbeat */}
+                <div className="px-4 py-3 mx-4 mb-4 rounded-xl bg-secondary/30 border border-border/50">
+                    <div className="flex items-center gap-2 mb-1.5 text-[10px] font-bold text-green-600 uppercase tracking-tight">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        Vault Secured
+                    </div>
+                    <p className="text-[10px] text-muted-foreground leading-tight">
+                        AES-256 Encrypted. <br />
+                        AI processing confined to your private instance.
+                    </p>
+                </div>
+
                 <div className="p-4 border-t border-border space-y-1">
                     <Link
                         href="/dashboard/settings"
@@ -93,7 +115,7 @@ export default function DashboardLayout({
                         )}
                     >
                         <Settings className="w-4 h-4" />
-                        Settings
+                        Account Settings
                     </Link>
                     <button
                         className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"

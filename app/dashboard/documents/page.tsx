@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { DocumentCard } from "@/components/documents/DocumentCard";
 import { Button } from "@/components/ui/button";
-import { Plus, Filter, FileText, Loader2 } from "lucide-react";
+import { Plus, Filter, FileText, Loader2, ShieldCheck, Scale } from "lucide-react";
 import Link from "next/link";
 
 export default function DocumentsPage() {
@@ -33,21 +33,34 @@ export default function DocumentsPage() {
         <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
                 <div>
-                    <h2 className="text-3xl font-bold tracking-tight">Documents</h2>
-                    <p className="text-muted-foreground">Manage your analyzed files and contracts.</p>
+                    <h2 className="text-3xl font-bold tracking-tight text-primary">Document Vault</h2>
+                    <p className="text-muted-foreground">Proactive analysis of your contracts, IDs, and compliance docs.</p>
                 </div>
                 <div className="flex gap-2">
-                    <Button variant="outline">
-                        <Filter className="mr-2 h-4 w-4" />
-                        Filter
+                    <Button variant="outline" className="gap-2 border-primary/20 text-primary hover:bg-primary/5">
+                        <FileText className="w-4 h-4" /> Prepare Tax Folder
                     </Button>
                     <Link href="/dashboard/documents/upload">
-                        <Button>
+                        <Button className="shadow-md">
                             <Plus className="mr-2 h-4 w-4" />
-                            Upload New
+                            Log New Document
                         </Button>
                     </Link>
                 </div>
+            </div>
+
+            {/* Specialized Categories - High Priority */}
+            <div className="flex flex-wrap gap-3 py-2">
+                <Button variant="secondary" size="sm" className="rounded-full bg-primary/10 text-primary border-primary/20 hover:bg-primary/20">All Assets</Button>
+                <Button variant="outline" size="sm" className="rounded-full gap-2">
+                    <ShieldCheck className="w-3.5 h-3.5 text-blue-600" /> IDs & Compliance
+                </Button>
+                <Button variant="outline" size="sm" className="rounded-full gap-2">
+                    <FileText className="w-3.5 h-3.5 text-green-600" /> Tax & Receipts
+                </Button>
+                <Button variant="outline" size="sm" className="rounded-full gap-2">
+                    <Scale className="w-3.5 h-3.5 text-amber-600" /> Legal Contracts
+                </Button>
             </div>
 
             {loading ? (
